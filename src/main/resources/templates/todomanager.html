@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+<title>ToDo Manager List</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-1">
+				<form class="form-vertical" th:action="@{/logout}">
+					<button class="btn btn-default center-block"
+						style="margin-top: 15px" type="submit">Logout</button>
+				</form>
+			</div>
+			<div class="col-md-3">
+				<h3>
+					Welcome <span th:text="${todoManagerForm.userName}">User
+						Name</span>
+				</h3>
+				<div class="col-md-8"></div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<form class="form-vertical" method="POST"
+					th:object="${todoManagerForm}">
+					<fieldset>
+						<div id="legend">
+							<legend class="">ToDos</legend>
+						</div>
+
+						<div class="alert alert-danger" th:if="*{showUnsuccessfulMsg}">
+							<strong>Error!</strong> Todo couldnt be added. Contact admin if
+							it persists.
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="password">ToDo</label>
+							<div class="controls">
+								<input type="newTodo" id="newTodo" name="newTodo"
+									class="form-control input-lg" th:value="*{newTodo}" />
+							</div>
+							<span class="control-label"
+								th:if="${#fields.hasErrors('newTodo')}" th:errors="*{newTodo}">Todo
+								Error</span>
+						</div>
+						<br />
+						<div class="control-group">
+							<div class="controls">
+								<button class="btn btn-success" type="submit">Add new
+									ToDo</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<br />
+				<div class="panel panel-default">
+					<ul class="list-group">
+						<li class="list-group-item"
+							th:each="todoEntry : ${todoManagerForm.todoEntries}"><span
+							th:text="${todoEntry.todoText}">Todo text</span> <a
+							th:href="@{/delete/item/{id}(id=${todoEntry.id})}"><span
+								class="glyphicon glyphicon-trash"></span></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+</body>
+</html>

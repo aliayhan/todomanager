@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+<title>ToDo Manager Login</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<form class="form-vertical" method="POST" th:object="${loginForm}">
+					<fieldset>
+						<div id="legend">
+							<legend class="">Login</legend>
+						</div>
+						
+						<div class="alert alert-danger" th:if="*{showUnsuccessfulMsg}">
+							<strong>Error!</strong> Wrong user name or password.
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="userName">User name</label>
+							<div class="controls">
+								<input type="text" id="userName" name="userName"
+									class="form-control input-lg" th:value="*{userName}" />
+							</div>
+							<span class="control-label"
+								th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name
+								Error</span>
+						</div>
+						<br />
+						<div class="control-group">
+							<label class="control-label" for="password">Password</label>
+							<div class="controls">
+								<input type="password" id="password" name="password"
+									class="form-control input-lg" th:value="*{password}" />
+							</div>
+							<span class="control-label"
+								th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+								Error</span>
+						</div>
+						<br />
+						<div class="control-group">
+							<div class="controls">
+								<button class="btn btn-success" type="submit">Login</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<form class="form-vertical" th:action="@{/register}">
+					<button class="btn btn-default" type="submit">Register
+						yourself</button>
+				</form>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+<title>ToDo Manager Register</title>
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<form class="form-vertical" method="POST"
+					th:object="${registerForm}">
+					<fieldset>
+						<div id="legend">
+							<legend class="">Register</legend>
+						</div>
+
+						<div class="alert alert-success" th:if="*{showSuccessfulMsg}">
+							<strong>Success!</strong> User has been created.
+						</div>
+						<div class="alert alert-danger" th:if="*{showUnsuccessfulMsg}">
+							<strong>Error!</strong> User name / email may already been
+							registered. Contact admin if it persists.
+						</div>
+
+						<div class="control-group">
+							<label class="control-label" for="userName">User name</label>
+							<div class="controls">
+								<input type="text" id="userName" name="userName"
+									class="form-control input-lg" th:value="*{userName}" />
+							</div>
+							<span class="control-label"
+								th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">Name
+								Error</span>
+						</div>
+						<br />
+						<div class="control-group">
+							<label class="control-label" for="email">Email</label>
+							<div class="controls">
+								<input type="email" id="email" name="email"
+									class="form-control input-lg" th:value="*{email}" />
+							</div>
+							<span class="control-label" th:if="${#fields.hasErrors('email')}"
+								th:errors="*{email}">Email Error</span>
+						</div>
+						<br />
+						<div class="control-group">
+							<label class="control-label" for="password">Password</label>
+							<div class="controls">
+								<input type="password" id="password" name="password"
+									class="form-control input-lg" th:value="*{password}" />
+							</div>
+							<span class="control-label"
+								th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password
+								Error</span>
+						</div>
+						<br />
+						<div class="control-group">
+							<div class="controls">
+								<button class="btn btn-success" type="submit">Register</button>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+				<form class="form-vertical" th:action="@{/login}">
+					<button class="btn btn-default" type="submit">Login
+						yourself</button>
+				</form>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+</body>
+</html>
