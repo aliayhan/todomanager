@@ -8,6 +8,7 @@ import java.util.List;
 import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.StringUtils;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -28,12 +29,16 @@ import org.springframework.test.context.junit4.SpringRunner;
  * data JPA tests are transactional and rollback at the end of each test by
  * default.
  * 
+ * TODO: Find a test strategy to make these tests runnable without an active DB.
+ * E.g. provding information of an external docker container mysql server.
+ * 
  * @author Ayhan Dardagan
  *
  */
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@Ignore("Active database connection needed for these tests.")
 public class UserRepositoryTest {
 
 	/**
